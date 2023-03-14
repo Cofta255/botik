@@ -6,21 +6,22 @@ from vkbottle.bot import Bot, Message
 from vkbottle.modules import json
 from config import api
 
-bot = Bot(api)
+bot = Bot("TOKEN_BOTA")
 logging.basicConfig(level=logging.INFO)
 
-@bot.on.private_message(text="Начать")
-async def gm(message: Message):
-    Keyboard = (
+Keyboard = (
         Keyboard(one_time=False)
         .add(Callback("Сменить локацию", payload={"cmd": "change_location"}))
         .add(Callback("Инвентарь", payload={"cmd": "inventory"}))
-        .row
+        .row()
         .add(Callback("Арена", payload={"cmd": "arena"}))
         .add(Callback("Мини игры", payload={"cmd": "mini_games"}))
-        .row
+        .row()
         .add(Callback("Настройки", payload={"cmd": "settings"}))
     )
+
+@bot.on.private_message(text="Начать")
+async def gm(message: Message):
     await message.answer("Главное меню", keyboard=Keyboard)
 
 @bot.on.raw_event(GroupEventType.MESSAGE_EVENT, dataclass=GroupTypes.MessageEvent)
