@@ -6,8 +6,21 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Title: PyScript</title>
+    <py-env>
+       - pytelegrambotapi
+    </py-env>
 </head>
 <body>
-	<py-script> print("Hello, World!") </py-script>
+	<py-script> 
+import telebot
+
+bot = telebot.TeleBot('6490104345:AAGHF49SOsAau_NMkDoCoWoDdLgeXSgmaMc')
+
+@bot.message_handler(commands=['start'])
+def start(message):
+    bot.send_message(message.chat.id, 'It works!')
+
+bot.polling()
+	</py-script>
 </body>
 </html>
